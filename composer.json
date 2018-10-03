@@ -1,0 +1,22 @@
+{
+  "name": "shillo92/MadezLib",
+  "version": "0.0.1",
+  "description": "The MadEZ PHP library for the MadEZ Wordpress Generator",
+  "authors": [
+    {
+        "name": "Shiloh Ben David",
+        "email": "sshilo@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">= 7.1",
+    "symfony/filesystem": "^2.7"
+  },
+   "autoload": {
+       "psr-4": {
+           "Madez\\": "src/",
+            "Madez\\Tests\\": "tests/"
+       }
+   }
+}
