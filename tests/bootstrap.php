@@ -5,7 +5,15 @@
  * @package Twentyfifteen_Child
  */
 
-require __DIR__.'/../vendor/autoload.php';
+$standalone_autoload = dirname(__DIR__).'/vendor/autoload.php';
+
+if (!file_exists($standalone_autoload)) { // Then this is used as a dependency, not good...
+    throw new \InvalidArgumentException(
+        'When used as a Composer dependency, you must run this test as part of the root package test suite'
+    );
+}
+
+require_once $standalone_autoload;
 
 $vendorDir = dirname(__DIR__, 2);
 
