@@ -38,7 +38,7 @@ class Config
      */
     public function getFaviconMarkupsFilename() : string
     {
-        return $this->getThemeRootDirname().'/favicons.html';
+        return $this->getFaviconBuildDirname().'/markups.html';
     }
 
     /**
