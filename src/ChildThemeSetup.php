@@ -6,7 +6,7 @@ namespace Madez;
  *
  * @package Madez
  */
-class ChildThemeSetup
+class ChildThemeSetup implements ServiceProvider
 {
     /**
      * @var ChildThemeSetup
@@ -53,6 +53,14 @@ class ChildThemeSetup
     }
 
     /**
+     * @return WordpressFacilizer
+     */
+    protected function loadFacilizer() : WordpressFacilizer
+    {
+        return (new WordpressFacilizer($this->getConfig()));
+    }
+
+    /**
      * @return Config
      */
     public function getConfig()
@@ -66,18 +74,10 @@ class ChildThemeSetup
     public function getFacilizer(): WordpressFacilizer
     {
         if ($this->facilizer === null) {
-            $this->setFacilizer(new WordpressFacilizer());
+            $this->facilizer = $this->loadFacilizer();
         }
 
         return $this->facilizer;
-    }
-
-    /**
-     * @param WordpressFacilizer $facilizer
-     */
-    public function setFacilizer(WordpressFacilizer $facilizer)
-    {
-        $this->facilizer = $facilizer;
     }
 
     public function setup()
