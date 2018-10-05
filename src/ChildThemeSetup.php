@@ -63,7 +63,7 @@ class ChildThemeSetup implements ServiceProvider
     /**
      * @return Config
      */
-    public function getConfig()
+    public function getConfig() : Config
     {
         return $this->config;
     }
