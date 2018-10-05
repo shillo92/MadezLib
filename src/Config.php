@@ -1,9 +1,16 @@
 <?php
 namespace Madez;
 
-final class Config
+/**
+ * Provides methods to retrieve configuration info. This class is used by the ChildThemeSetup during setup time. Therefore if you
+ * wish you modify the returned values from Config you need to inherit this class and extend ChildThemeSetup by overriding the
+ * {@see ChildThemeSetup::loadConfig()} method to return an instance of the Config class you created.
+ *
+ * @package Madez
+ */
+class Config
 {
-    public static function getVersion()
+    public function getVersion()
     {
         return wp_get_theme()->get('Version');
     }
@@ -13,7 +20,7 @@ final class Config
      *
      * @return string
      */
-    public static function getTextDomain()
+    public function getTextDomain()
     {
         return wp_get_theme()->get('TextDomain');
     }
@@ -21,9 +28,33 @@ final class Config
     /**
      * @return string
      */
-    public static function getMainStylesheetRelativeFilename()
+    public function getMainStylesheetRelativeFilename()
     {
         return 'style.css';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFaviconMarkupsFilename() : string
+    {
+        return $this->getFaviconBuildDirname().'/markups.html';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFaviconBuildDirname() : string
+    {
+        return $this->getAssetsDirname().'/favicon/build';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssetsDirname() : string
+    {
+        return $this->getThemeRootDirname().'/assets';
     }
 
     /**
@@ -31,7 +62,7 @@ final class Config
      *
      * @see get_template_directory_uri()
      */
-    public static function getParentThemeRootRelativeUri()
+    public function getParentThemeRootRelativeUri()
     {
         return '../'.basename(get_template_directory_uri());
     }
@@ -41,7 +72,7 @@ final class Config
      *
      * @see get_stylesheet_directory_uri()
      */
-    public static function getThemeRootUri()
+    public function getThemeRootUri()
     {
         return get_stylesheet_directory_uri();
     }
@@ -51,7 +82,7 @@ final class Config
      *
      * @see get_stylesheet_directory()
      */
-    public static function getThemeRootDirname()
+    public function getThemeRootDirname()
     {
         return get_stylesheet_directory();
     }

@@ -18,17 +18,17 @@ final class FileRefreshOptions
      * @param string $rel_filename
      * @return bool|false|int|string
      */
-    public static function getVersionByRefreshOption($refreshOption, $rel_filename)
+    public static function getVersionByRefreshOption($refreshOption, $rel_filename, Config $config)
     {
         $verArg = false;
 
         switch ($refreshOption) {
             case FileRefreshOptions::AT_FILE_CHANGE:
-                $filename = Config::getThemeRootDirname().'/'.$rel_filename;
+                $filename = $config->getThemeRootDirname().'/'.$rel_filename;
                 $verArg = filemtime($filename);
                 break;
             case FileRefreshOptions::AT_THEME_VERSION_CHANGE:
-                $verArg = Config::getVersion();
+                $verArg = $config->getVersion();
                 break;
         }
 
