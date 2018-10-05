@@ -65,6 +65,10 @@ class ChildThemeSetup
      */
     public function getFacilizer(): WordpressFacilizer
     {
+        if ($this->facilizer === null) {
+            $this->setFacilizer(new WordpressFacilizer());
+        }
+
         return $this->facilizer;
     }
 
