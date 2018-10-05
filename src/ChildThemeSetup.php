@@ -57,7 +57,7 @@ class ChildThemeSetup implements ServiceProvider
      */
     protected function loadFacilizer() : WordpressFacilizer
     {
-        return (new WordpressFacilizer($this->getConfig()));
+        return (new WordpressFacilizer($this));
     }
 
     /**
