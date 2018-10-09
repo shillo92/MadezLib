@@ -1,5 +1,6 @@
 <?php
 namespace Madez;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class ChildThemeSetup
@@ -99,10 +100,47 @@ class ChildThemeSetup implements ServiceProvider
         $flag = false;
 
         if (file_exists($markupsFilename)) {
-            require($markupsFilename);
+            echo $this->loadMarkupsFile($markupsFilename);
+            $flag = true;
         }
 
         do_action('theme_favicon_setup', $flag);
+    }
+
+    /**
+     * Loads the data from markups file and prepares it for the theme.
+     *
+     * @param string $filename
+     * @return string
+     * @see prepareMarkupsDataForTheme()
+     */
+    protected function loadMarkupsFile(string $filename) : string
+    {
+        $data = file_get_contents($filename);
+
+        return $this->prepareMarkupsDataForTheme($data);
+    }
+
+    /**
+     * Prepares the favicons markups data to be included in the theme.
+     *
+     * This function only finds the 'href' and 'content' HTML attributes with filename values and prepends them
+     * the theme's URI.
+     * Otherwise if not added, the web browsers can't figure the right URI to the favicons.
+     *
+     * @param string $data The data to prepare.
+     * @return string
+     */
+    protected function prepareMarkupsDataForTheme(string $data) : string
+    {
+        $url = $this->getConfig()->getThemeRootUri();
+        $newData = preg_replace(
+            '/\s+(href|content)\s*=\s*"(.*\.\w{1,4})"/',
+            ' $1="'.$url.'/$2"',
+            $data
+        );
+
+        return $newData;
     }
 
     protected function setupJavascripts()
