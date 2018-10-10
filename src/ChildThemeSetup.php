@@ -135,7 +135,7 @@ class ChildThemeSetup implements ServiceProvider
     {
         $url = $this->getConfig()->getThemeRootUri();
         $newData = preg_replace(
-            '/\s+(href|content)\s*=\s*"(.*\.\w{1,4})"/',
+            '/\s+(href|content)\s*=\s*"(.*\.\w{1,})"/',
             ' $1="'.$url.'/$2"',
             $data
         );
